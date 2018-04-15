@@ -58,3 +58,4 @@ make clean
 ## References
 https://zhuanlan.zhihu.com/p/23248550
 https://blog.csdn.net/tang152453/article/details/41170399
+https://wiki.ubuntu.com/KernelTeam/GitKernelBuild
