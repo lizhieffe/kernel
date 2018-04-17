@@ -31,31 +31,12 @@ Install the necessary tools by running
 sudo apt-get build-dep linux-image-{$KERNEL_VERSION}
 ```
 
-4. Prepare kernel config.
+4. Build and install kernel.
 
-Go the the source folder,
-- If your source is the same version as the one running on your machine, copy
-the config by running
+Follow this link: https://wiki.ubuntu.com/KernelTeam/GitKernelBuild
 
-```
-cp /boot/config-{$KERNEL_VERSION} .config
-```
+Note that the checkout name in linux git repository is like v3.13.1
 
-- You can choose to generate the config manually. But be careful to select the
-correct options and modules to be compiled in the kernel. Otherwise your system
-may not be able to start.
-
-- There are other ways to generate config automatically. TODO(lizhi): update
-this.
-
-5. Clean the source if necessary
-
-```
-make clean
-```
-
-6. 
 ## References
 https://zhuanlan.zhihu.com/p/23248550
 https://blog.csdn.net/tang152453/article/details/41170399
-https://wiki.ubuntu.com/KernelTeam/GitKernelBuild
