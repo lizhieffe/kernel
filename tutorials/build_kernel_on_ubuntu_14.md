@@ -10,20 +10,7 @@ on your machines, check the version of your current system
 uname -a
 ```
 
-2. Download the kernel source.
-
-Go to directory /usr/src, and run
-
-```
-sudo apt-get source linux-image-{$KERNEL_VERSION}
-```
-
-For example, `sudo apt-get source linux-image-3.13.0-144-generic`
-
-After the download finishes, you can see one new folder which contains the
-source code, and three new files.
-
-3. Prepare environment.
+2. Prepare environment.
 
 Install the necessary tools by running
 
@@ -31,12 +18,14 @@ Install the necessary tools by running
 sudo apt-get build-dep linux-image-{$KERNEL_VERSION}
 ```
 
-4. Build and install kernel.
+3. Build and install kernel.
 
 Follow this link: https://wiki.ubuntu.com/KernelTeam/GitKernelBuild
 
 Note that the checkout name in linux git repository is like v3.13.1
 
 ## References
+
 https://zhuanlan.zhihu.com/p/23248550
+
 https://blog.csdn.net/tang152453/article/details/41170399
