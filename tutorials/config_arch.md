@@ -3,6 +3,5 @@
 ```
 systemctl enable dhcpcd.service   # enable wired network connection on bootup
 systemctl start dhcpcd.service    # start wired network connection now
-pacman -S git                     # install git
-pacman -S base-devel              # install core development package
+pacman -S base-devel git bc xmlto docbook-xsl kmod inetutils    # install core development package, e.g., make, gcc
 ```
