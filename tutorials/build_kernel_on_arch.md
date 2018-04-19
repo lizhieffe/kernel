@@ -14,6 +14,7 @@ git checkout v4.15  # change to the desired version of kernel
 To create a default config, run
 
 ```
+rm .config
 zcat /proc/config.gz > .config
 ```
 
@@ -25,54 +26,61 @@ this method.
 make localmodconfig
 ```
 
-4. Compile the kernel
+4. Set up environment
+
+```
+KERNEL_NAME="linux-custom"
+CORES=`getconf _NPROCESSORS_ONLN`
+```
+
+5. Compile the kernel
 
 ```
 # Clean the build if necessary
 make clean
 
 # Compile using all cores and set a customized name to the generated binary.
-make -j `getconf _NPROCESSORS_ONLN` LOCALVERSION=-custom
+make -j "$CORES" LOCALVERSION=-"$KERNEL_NAME"
 ```
 
-5. Compile the modules
+6. Compile the modules
 
 ```
-make modules_install
+make modules_install -j "$CORES" LOCALVERSION=-"$KERNEL_NAME"
 ```
 
-6. Copy the kernel to /boot directory
+7. Copy the kernel to /boot directory
 
 ```
-cp -v arch/x86_64/boot/bzImage /boot/vmlinuz-linux-custom
+cp -v arch/x86_64/boot/bzImage /boot/vmlinuz-"$KERNEL_NAME"
 ```
 
-7. Make initial RAM disk
+8. Make initial RAM disk
 
 - Copy the existing preset file
 
 ```
-cp /etc/mkinitcpio.d/linux.preset /etc/mkinitcpio.d/linux-custom.preset
+cp /etc/mkinitcpio.d/linux.preset /etc/mkinitcpio.d/"$KERNEL_NAME".preset
 ```
 
 - Edit the copied preset file
 
 ```
 ...
-ALL_kver="/boot/vmlinuz-linux-custom"
+ALL_kver="/boot/vmlinuz-[KERNEL_NAME]"
 ...
-default_image="/boot/initramfs-linux-custom.img"
+default_image="/boot/initramfs-[KERNEL_NAME].img"
 ...
-fallback_image="/boot/initramfs-linux-custom-fallback.img"
+fallback_image="/boot/initramfs-[KERNEL_NAME]-fallback.img"
 ```
 
 - Generate the initramfs images for the custom kernel
 
 ```
-mkinitcpio -p linux-custom
+mkinitcpio -p "$KERNEL_NAME"
 ```
 
-8. Update the grub config so that the new kernel can be displayed as start up
+9. Update the grub config so that the new kernel can be displayed as start up
 option
 
 ```
@@ -80,7 +88,7 @@ option
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-9. Reboot the system and select your new kernel in the grub UI
+10. Reboot the system and select your new kernel in the grub UI
 
 ```
 reboot
