@@ -1,17 +1,27 @@
 #/bin/sh
 
+# Script to build and install linux kernel for arch linux.
+# Useage:
+#	if '-c' is present, clean before compile.
+
 KERNEL_DIR="/root/development/linux"
 echo "Going to kernel directory: ${KERNEL_DIR}"
 cd "$KERNEL_DIR"
 
 # git checkout v4.15
 
-echo "Cleaning env..."
-make clean
+if [ "$#" -ne 1 ] && [ "$1" = "-c" ]; then
+	echo "Cleaning env..."
+	make clean
+fi
 
-echo "Generating .config file"
-rm .config
-zcat /proc/config.gz > .config
+CONFIG_FILE=".config"
+if [ -f "${CONFIG_FILE}" ]; then
+	echo "Deleting existing ${CONFIG_FILE} file"
+	rm .config
+fi
+echo "Generating new ${CONFIG_FILE} file"
+zcat /proc/config.gz > "${CONFIG_FILE}"
 
 KERNEL_NAME="linux-custom"
 CORES=`getconf _NPROCESSORS_ONLN`
