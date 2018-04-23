@@ -1,14 +1,21 @@
 ## Must do after fresh install
 
+### Install softwares
+
 ```
 systemctl enable dhcpcd.service   # enable wired network connection on bootup
 systemctl start dhcpcd.service    # start wired network connection now
+// Dev tools
 pacman -S base-devel git bc xmlto docbook-xsl kmod inetutils # install core development package, e.g., make, gcc
-pacman -S git tmux bash-completion
+// Utils
+pacman -S git bash-completion openssh
 // python2
 pacman -S python2
 // c/c++ tools
 pacman -S ctags cscope
+// To kill xserver, Ctrl+Alt+F1
+pacman -S xorg-server xorg-xmodmap xorg-xinit xterm
+// Install tmux-bash-completion AUR
 ```
 
 ### Create user account
